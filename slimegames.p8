@@ -14,8 +14,8 @@ function _init ()
 	p1y = 80
 	p1speed = 4
 	-- jumping
-	p1jgravityinit = 0.2
-	p1jspeedinit = 3
+	p1jgravityinit = 0.1
+	p1jspeedinit = 2
 	p1jgravity = p1jgravityinit
 	p1jspeed = p1jspeedinit
 	p1jump = false
