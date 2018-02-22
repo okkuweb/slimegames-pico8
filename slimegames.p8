@@ -6,59 +6,81 @@ __lua__
 
 function _init ()
 	cls()
-	--< player 1 >--
+	--< positions >--
+	-- player 1
 	p1xinit = 20
 	p1yinit = 80
-	-- movement
-	p1x = 20
-	p1y = 80
-	p1speed = 4
-	-- jumping
-	p1jgravityinit = 0.1
-	p1jspeedinit = 2
-	p1jgravity = p1jgravityinit
-	p1jspeed = p1jspeedinit
-	p1jump = false
-	--< player 2 >--
+	p1x = p1xinit
+	p1y = p1yinit
+	-- player 2
+	p2x = 80
+	p2y = 80
+	p2x = p2xinit
+	p2y = p2yinit
+	
+	--< global movement >--
+	speed = 4
+	jgravityinit = 0.1
+	jgravity = jgravityinit
+	jspeedinit = 2
+	
+	--< player movement >--
+	-- player 1
+	p1jspeed = jspeedinit
+	p2jstate = false
+	-- player 2
+	p2jspeed = jspeedinit
+	p2jstate = false
 	
 	-- tests
 	kek = 0
 end
 
 function _update60()
-	--< player 1 position change >--
-	if btn(1,1) then
-		p1x += 1
-	end
-	if btn(0,1) then
-		p1x -= 1
-	end
-	
-	-- jump
-	if btn(2,1) and not p1jump then
-		jump()
-	end
-	if p1y < p1yinit then
-		p1jspeed -= p1jgravity
-		jump()
-	else
-		p1jump = false
-		p1jspeed = p1jspeedinit
-		p1jgravity = p1jgravityinit
-	end
+	--< player 1 controls >--
+	move(0)
+	jump(0)
 	
 	--< update tests >--
 	kek += 1
 end
 
-function jump()
-	p1jump = true
-	p1y -= p1jspeed
+function move(p)
+	if btn(1,p) then
+		p1x += 1
+	end
+	if btn(0,p) then
+		p1x -= 1
+	end
+end
+
+function jump(p)
+	-- initiate jump
+	if btn(2,p) and not p1jstate then
+		p1jstate = true
+ 	p1y -= p1jspeed
+	end
+	
+	-- produce jump motion
+	if p1y < p1yinit then
+		p1jstate = true
+		p1jspeed -= jgravity
+ 	p1y -= p1jspeed
+	else
+		-- reset jump parameters
+		p1jstate = false
+		p1jspeed = jspeedinit
+		p1jgravity = jgravityinit
+		-- shi♥ fix for the
+		-- occasional floor clip
+		p1y = p1yinit + 0.01
+	end
 end
 
 function _draw()
  cls()
  map(0,0)
+ -- player 1 sprite
  sspr(0,8,16,16,p1x,p1y)
 end
 
