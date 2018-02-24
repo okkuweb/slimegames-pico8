@@ -35,9 +35,6 @@ function _init ()
 	-- player 2
 	p2jspeed = jspeedinit
 	p2jstate = false
-	
-	-- tests
-	kek = 0
 end
 
 function _update60()
@@ -48,9 +45,6 @@ function _update60()
 	--< player 2 controls >--
 	move(p2)
 	jump(p2)
-		
-	--< update tests >--
-	kek += 1
 end
 
 function move(p)
