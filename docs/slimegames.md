@@ -8,4 +8,5 @@
 - The speed is always constant defined number on hit
 - The gravity is always constant
 - At the start the gravity is 0
-
+- Make sure that the ball speed is actually consistent at differing angles
+- Implement the ball hitspeed. Now the speed of the ball operates on some magic. I don't even know.
