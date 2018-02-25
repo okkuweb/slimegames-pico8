@@ -10,3 +10,4 @@
 - At the start the gravity is 0
 - Make sure that the ball speed is actually consistent at differing angles
 - Implement the ball hitspeed. Now the speed of the ball operates on some magic. I don't even know.
+- Hitting the ball should probably take into account the momentum of the player hitting it...?

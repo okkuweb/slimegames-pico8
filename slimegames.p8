@@ -11,13 +11,20 @@ function _init ()
 	-- p1 init
 	p1 = {}
 	p1.index = 0
+	p1.timeout = false
+	p1.timelen = 60
+	p1.time = 100
 	p1.xinit = 20
 	p1.yinit = 80
+
 	p1.x = p1.xinit
 	p1.y = p1.yinit
 	-- p2 init
 	p2 = {}
 	p2.index = 1
+	p2.timeout = false
+	p2.timelen = 60
+	p2.time = 100
 	p2.xinit = 90
 	p2.yinit = 80
 	p2.x = p2.xinit
@@ -45,12 +52,12 @@ function _init ()
 	b.xspeed = 0
 	b.yspeed = 0
 	b.hitspeed = 2
-	b.gravity = 0.019
+	b.gravity = 0.05
 	b.radius = 2
 	b.color = 22
-	b.timeout = false
-	b.timelen = 60
-	b.time = 100
+
+	--< helper variables >--
+	occurrence = 0
 end
 
 function _update60()
@@ -64,8 +71,9 @@ function _update60()
 	
 	--< ball movement >--
 	ball_move()
-	ball_hit(p1)
-	ball_hit(p2)
+	wall_hit()
+	player_hit(p1)
+	player_hit(p2)
 end
 
 function move(p)
@@ -108,39 +116,53 @@ function ball_move()
 	b.x += b.xspeed
 end
 
-function ball_hit(p)
-	p_center_x = p.x+size/2
-	p_center_y = p.y+size-3
+function wall_hit()
+	-- if hit right or left wall
+	if b.x-b.radius < 0 or 
+				b.x+b.radius > 128
+				then
+		b.xspeed = -b.xspeed
+	end
+	
+	if b.y+b.radius > 95 then
+		b.angle = atan2(b.xspeed,b.yspeed)
+		b.yspeed = -sin(b.angle)*b.hitspeed
+	end
+end
+
+function player_hit(p)
+	px = p.x+size/2
+	py = p.y+size-3
 	-- ball distance from p1
 	distance = (
 		sqrt(
-			(p_center_x-b.x)^2+
-			(p_center_y-b.y)^2
+			(px-b.x)^2+
+			(py-b.y)^2
 		)
 	)
 	
-	b.time += 1
+	p.time += 1
 	
 	if b.timeout
 				and b.time > b.timelen
 				then
-		b.timeout = false
+		p.timeout = false
 	end
 	
 	-- if hit
 	if distance<=size/2+b.radius
 				and not b.timeout
 				then
-		p_hit(p_center_x,p_center_y)
-		b.timeout = true
-		b.time = 0
-	end
-end
+ 	b.angle = atan2(px-b.x,py-b.y)
+ 	x_side = cos(b.angle)*b.hitspeed
+ 	y_side = sin(b.angle)*b.hitspeed
+ 	
+ 	b.xspeed = -x_side
+ 	b.yspeed = -y_side
 
-function p_hit(px,py)
-	b.angle = atan2(px-b.x,py-b.y)
-	b.xspeed = -cos(b.angle)
-	b.yspeed = -sin(b.angle)
+		p.timeout = true
+		p.time = 0
+	end
 end
 
 function _draw()
@@ -176,8 +198,23 @@ function _draw()
  	b.x,b.y,
  	3
  )
- print(b.angle)
+ print(occurrence)
 end
+-->8
+--[[
+
+ 	--[[	this pattern is useful if
+ 	i need the speed of an object
+ 	to be same before and after
+ 	a hit ]]--
+
+ 	b.angle = atan2(px-b.x,py-b.y) 	
+
+ 	b.xspeed = -cos(b.angle)
+ 	b.yspeed = -sin(b.angle)
+
+
+--]]
 __gfx__
 00000000111111110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000111111110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
