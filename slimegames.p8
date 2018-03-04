@@ -12,7 +12,7 @@ function _init ()
 	p1 = {}
 	p1.index = 0
 	p1.timeout = false
-	p1.timelen = 60
+	p1.timelen = 10
 	p1.time = 100
 	p1.xinit = 20
 	p1.yinit = 80
@@ -24,7 +24,7 @@ function _init ()
 	p2 = {}
 	p2.index = 1
 	p2.timeout = false
-	p2.timelen = 60
+	p2.timelen = 10
 	p2.time = 100
 	p2.xinit = 90
 	p2.yinit = 80
@@ -57,7 +57,7 @@ function _init ()
 	b.hitspeed = 2
 	b.gravity = 0.05
 	b.radius = 2
-	b.color = 22
+	b.color = 6
 
 	--< helper variables >--
 	occurrence = 0
@@ -141,7 +141,7 @@ end
 
 function player_hit(p)
 	-- ball distance from p1
-	distance = (
+	local distance = (
 		sqrt(
 			(p.x+p.xmid-b.x)^2+
 			(p.y+p.ymid-b.y)^2
@@ -150,15 +150,15 @@ function player_hit(p)
 	
 	p.time += 1
 	
-	if b.timeout
-				and b.time > b.timelen
+	if p.timeout
+				and p.time > p.timelen
 				then
 		p.timeout = false
 	end
 	
 	-- if hit
 	if distance<=size/2+b.radius
-				and not b.timeout
+				and not p.timeout
 				then
 		occurrence += 1
  	b.angle = atan2(
