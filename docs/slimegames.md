@@ -1,14 +1,9 @@
 # Slimegames notes
 - Add skins for the characters
 - Add epic anime cutscenes for when you hit the balls in a certain way. Eg. when you drop on the ball from the above.
-- When pushing the opposite direction button it should override the already pushed direction
+- When pushing the opposite direction button it should override the already pushed direction when moving the player
 - Remember to fix the slime positions so that they're in identical positions
-- Change the local variables to be actually local to functions
 
 ## Ball physics
-- The speed is always constant defined number on hit
-- The gravity is always constant
-- At the start the gravity is 0
-- Make sure that the ball speed is actually consistent at differing angles
-- Implement the ball hitspeed. Now the speed of the ball operates on some magic. I don't even know.
 - Hitting the ball should probably take into account the momentum of the player hitting it...?
+- Fix the hitboxes so that the ball won't be hit if under the character... Somehow...
