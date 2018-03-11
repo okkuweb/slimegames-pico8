@@ -157,8 +157,11 @@ function player_hit(p)
 	end
 	
 	-- if hit
-	if distance<=size/2+b.radius
-				and not p.timeout
+	if b.y < p.y + size
+				and
+				distance<=size/2+b.radius
+				and
+				not p.timeout
 				then
 		occurrence += 1
  	b.angle = atan2(
@@ -209,7 +212,8 @@ function _draw()
  	b.x,b.y,
  	3
  )
- print(occurrence)
+ print(p1.y+size)
+ print(b.y)
 end
 -->8
 --[[

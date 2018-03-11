@@ -7,3 +7,5 @@
 ## Ball physics
 - Hitting the ball should probably take into account the momentum of the player hitting it...?
 - Fix the hitboxes so that the ball won't be hit if under the character... Somehow...
+- Apparently the ball can still get stuck underground under certain circumstances
+- Now that the ball ricochets under the ball still in a "circular" fashion I bet it would be easy to code some smash motion to the ball and some higher speed upon hittin the ball with your underside
